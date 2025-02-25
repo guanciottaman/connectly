@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Connectly</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/assets/connectly.png') }}">
+</head>
+<body>
+    <header>
+        <img alt="logo" src="{{ url_for('static', filename='/assets/connectly.png') }}" style="width: 150px; height: 150px;"> 
+        <a href="{{ url_for('home') }}" style="text-decoration: none;"><h1>Connectly</h1></a>
+        <nav>
+            <ul>
+                <li><a class="nav-el" href="{{ url_for('chat') }}">Chat</a></li>
+                <li><a class="nav-el" href="/friends">Friends</a></li>
+                <li><a class="nav-el" href="/profile">Profile</a></li>
+                <li><a class="nav-el" href="/login">Login</a></li>
+                <li><a class="nav-el" href="/register">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="register">
+        <div class="container-log">
+            <h2>Create an Account</h2>
+            <div class="popup" id="popup">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="popup-content">
+                            {% for category, message in messages %}
+                                <p class="{{ category }}">{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        
+            <form action="/register" method="POST">
+                {% if errors %}
+                    <div class="flash-messages">
+                        {% for error in errors %}
+                            <div class="flash-message error">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Choose a username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Choose a password" required>
+                </div>
+                <div class="input-group">
+                    <label for="confirm_password">Confirm</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="/login">Login here</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Connectly. All rights reserved.</p>
+    </footer>
+</body>
+</html>

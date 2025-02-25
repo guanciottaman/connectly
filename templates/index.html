@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connectly - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/assets/connectly.png') }}">
+</head>
+<body>
+
+    <header>
+        <img alt="logo" src="{{ url_for('static', filename='/assets/connectly.png') }}" style="width: 150px; height: 150px;"> 
+        <a href="{{ url_for('home') }}" style="text-decoration: none;"><h1>Connectly</h1></a>
+        <nav>
+            <ul>
+                <li><a class="nav-el" href="{{ url_for('chat') }}">Chat</a></li>
+                <li><a class="nav-el" href="{{ url_for('friends') }}">Friends</a></li>
+                <li><a class="nav-el" href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a class="nav-el" href="{{ url_for('login') }}">Login</a></li>
+                <li><a class="nav-el" href="{{ url_for('register') }}">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="main">
+        <div class="container">
+            <h2>Welcome to Connectly</h2>
+            <p>Your place to meet new people, chat, and make connections!</p>
+            <button onclick="window.location.href='{{ url_for("login") }}' ">Start Chatting</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Connectly. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+</body>
+</html>
