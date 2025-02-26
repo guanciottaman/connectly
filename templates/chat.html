@@ -28,7 +28,10 @@
     {% if session.chat_with_user_id %}
     <div class="chat">
         <div class="user">
-            <a href="{{url_for('profile/{{username}}')}}"><h2>{{ session.chat_with_username }}</h2></a>
+            <a href="{{ url_for('profile', username=user.username) }}">
+                <h2>{{ session.chat_with_username }}</h2>
+            </a>
+            
             <div class="chatbox">
                 
             </div>
