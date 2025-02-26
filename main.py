@@ -141,6 +141,30 @@ def edit_profile():
 
     return jsonify({"success": True})
 
+
+@app.route("/chat")
+def chat():
+    if "username" not in session:
+        return redirect(url_for('login'))
+    user_id = session["user_id"]
+
+    with db_context() as c:
+        c.execute("SELECT username, joined, bio FROM users WHERE id != ? ORDER BY RANDOM() LIMIT 1", (user_id,))
+        user = c.fetchone()
+    user_dict = {
+        "username": user[0],
+        "joined": user[1], 
+        "bio": user[2]
+    }
+    
+    return render_template("chat.html", user=user_dict)
+
+
+@app.route('/friends')
+def friends():
+    return render_template('friends.html')
+
+
 @socketio.on('message')
 def handle_message(msg):
     print(f"Received: {msg}")
