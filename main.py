@@ -149,12 +149,13 @@ def chat():
     user_id = session["user_id"]
 
     with db_context() as c:
-        c.execute("SELECT username, joined, bio FROM users WHERE id != ? ORDER BY RANDOM() LIMIT 1", (user_id,))
+        c.execute("SELECT id, username, joined, bio FROM users WHERE id != ? ORDER BY RANDOM() LIMIT 1", (user_id,))
         user = c.fetchone()
     user_dict = {
-        "username": user[0],
-        "joined": user[1], 
-        "bio": user[2]
+        "user_id": user[0],
+        "username": user[1],
+        "joined": user[2], 
+        "bio": user[3]
     }
     
     return render_template("chat.html", user=user_dict)
