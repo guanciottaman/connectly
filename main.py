@@ -144,7 +144,7 @@ def edit_profile():
 
 @app.route("/chat")
 def chat():
-    if "username" not in session:
+    if "user_id" not in session:
         return redirect(url_for('login'))
     user_id = session["user_id"]
 
@@ -160,8 +160,50 @@ def chat():
     return render_template("chat.html", user=user_dict)
 
 
+@app.route('/set-user-id', methods=['POST'])
+def set_user_id():
+    # Check if user is logged in
+    if "user_id" not in session:
+        return jsonify({"success": False, "error": "Not logged in"}), 403
+
+    # Get data from the POST request
+    data = request.get_json()
+    user_id = data.get('id')
+
+    # Ensure that user_id is provided
+    if not user_id:
+        return jsonify({"success": False, "error": "User ID not provided"}), 400
+
+    session["chat_with_user_id"] = user_id
+    session["chat_with_username"] = target_user["username"]
+
+    return jsonify({"success": True, "message": "User ID saved successfully"})
+
+
+
+@app.route("/chat/<username>")
+def chat_with(username:str):
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    current_user = get_user_by_id(session["user_id"])
+
+    if not current_user:
+        return redirect(url_for("login"))
+
+    target_user = get_user_by_username(username)
+    session["chat_with_user_id"] = target_user["id"]
+    
+    return render_template("chat.html", current_user=current_user, target_user=target_user)
+
+
 @app.route('/friends')
 def friends():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    # Retrieve the current user from the session
+    current_user = get_user_by_id(session["user_id"])
     return render_template('friends.html')
 
 

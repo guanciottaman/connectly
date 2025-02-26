@@ -25,6 +25,16 @@
             </ul>
         </nav>
     </header>
+    {% if session.chat_with_user_id %}
+    <div class="chat">
+        <div class="user">
+            <a href="{{url_for('profile/{{username}}')}}"><h2>{{ session.chat_with_username }}</h2></a>
+            <div class="chatbox">
+                
+            </div>
+        </div>
+    </div>
+    {% else %}
     <section class="profile">
         <div class="entry">
             <img alt="pfp" src="{{ url_for('static', filename='assets/pfp.png') }}">
@@ -44,6 +54,7 @@
             <button onclick="reject" style="background-color: #8d99ae; color: black;">Reject</button>
         </div>
     </section>
+    {% enndif %}
     <footer>
         <p>&copy; 2025 Connectly. All rights reserved.</p>
     </footer>
