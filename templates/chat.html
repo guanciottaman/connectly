@@ -50,8 +50,8 @@
             <p><strong>Bio:</strong> <span id="bio">{{ user.bio if user.bio else 'No bio yet' | replace('\n', '<br>') | safe}}</span></p>
         </div>
         <div class="entry">
-            <button onclick="accept" style="background-color: #00b4d8; color: black;">Accept</button>
-            <button onclick="reject" style="background-color: #8d99ae; color: black;">Reject</button>
+            <button onclick="accept()" style="background-color: #00b4d8; color: black;">Accept</button>
+            <button onclick="reject()" style="background-color: #8d99ae; color: black;">Reject</button>
         </div>
     </section>
     {% endif %}
