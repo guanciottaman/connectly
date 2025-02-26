@@ -5,7 +5,7 @@ function accept(username, userId) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: userId })  // Send the user ID
+        body: JSON.stringify({ id: userId, username: username })  // Send the user ID
     })
     .then(response => response.json())
     .then(data => {

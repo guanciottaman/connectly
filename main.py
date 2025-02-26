@@ -175,8 +175,13 @@ def set_user_id():
     if not user_id:
         return jsonify({"success": False, "error": "User ID not provided"}), 400
 
+    username = data.get('username')
+
+    if not username:
+        return jsonify({"success": False, "error": "Username not provided"}), 400
+
     session["chat_with_user_id"] = user_id
-    session["chat_with_username"] = target_user["username"]
+    session["chat_with_username"] = username
 
     return jsonify({"success": True, "message": "User ID saved successfully"})
 
